@@ -22,29 +22,31 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Table(name = "questions")
+@Table(name = "operations")
 @Entity
-public class Questions {
+public class Operation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "score")
-    private int score;
+    @Column(name = "permit_all")
+    private boolean permitAll;
 
-    @Column(name = "description", length = 80, nullable = true)
-    private String description;
+    @Column(name = "http_method")
+    private String httpMethod;
+
+    @Column(name = "name", length = 80, nullable = true)
+    private String name;
+
+    @Column(name = "path")
+    private String path;
 
     @ManyToOne
-    @JoinColumn(name = "typeoptions_id")
+    @JoinColumn(name = "module_id")
     @JsonBackReference
-    TypeOptions typeOptions;
+    Module modules;
 
-    @OneToMany(mappedBy = "questions",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "operations",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonManagedReference
-    private Set<Answers> answers = new HashSet<>();
-
-    @OneToMany(mappedBy = "questions",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private Set<TestQuestions> testQuestions = new HashSet<>();
+    private Set<GrantedPermission> grantedPermissions = new HashSet<>();
 }

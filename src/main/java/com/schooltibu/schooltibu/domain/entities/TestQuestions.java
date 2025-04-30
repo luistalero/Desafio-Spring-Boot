@@ -1,7 +1,5 @@
 package com.schooltibu.schooltibu.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,13 +19,11 @@ public class TestQuestions {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    // @ManyToOne
-    // @JoinColumn(name = "questions_id")
-    // @JsonBackReference
-    // Questions questions;
+    @ManyToOne
+    @JoinColumn(name = "questions_id", insertable = false, updatable = false)
+    private Questions questions;
 
-    // @ManyToOne
-    // @JoinColumn(name = "testconfig_id")
-    // @JsonBackReference
-    // TestConfig testConfig;
+    @ManyToOne
+    @JoinColumn(name = "test_config_id" , insertable = false, updatable = false)
+    private TestConfig testConfig;
 }

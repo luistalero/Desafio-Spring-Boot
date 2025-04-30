@@ -36,9 +36,9 @@ public class Answers {
     @Column(name = "description", length = 80, nullable = true)
     private String description;
 
-    // @ManyToOne
-    // @JoinColumn(name = "questions_id")
-    // @JsonBackReference
-    // Questions questions;
+    @ManyToOne
+    @JoinColumn(name = "questions_id")
+    @JsonBackReference
+    Questions questions;
 
 }

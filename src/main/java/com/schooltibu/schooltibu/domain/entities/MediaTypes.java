@@ -6,22 +6,21 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+@Data
 @Getter
 @Setter
-@Table(name = "type_options")
+@Table(name = "media_types")
 @Entity
-public class TypeOptions {
+public class MediaTypes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = true)
     private int id;
 
-    @Column(name = "description", length = 80, nullable = true)
+    @Column(name = "description", length = 50, nullable = false)
     private String description;
-
-    @Column(name = "tag_option", length = 80, nullable = true)
-    private String tagOption;
-
 }

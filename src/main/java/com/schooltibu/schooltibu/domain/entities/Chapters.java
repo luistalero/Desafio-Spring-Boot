@@ -1,5 +1,6 @@
 package com.schooltibu.schooltibu.domain.entities;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,29 +23,34 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Table(name = "questions")
+@Table(name = "chapters")
 @Entity
-public class Questions {
+public class Chapters {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "score")
-    private int score;
+    @Column(name = "numbercharpter")
+    private int numberChapter;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @Column(name = "description", length = 80, nullable = true)
     private String description;
 
+    @Column(name = "chapter_summary", length = 80, nullable = true)
+    private String chapterSummary;
+
     @ManyToOne
-    @JoinColumn(name = "typeoptions_id")
+    @JoinColumn(name = "skill_id")
     @JsonBackReference
-    TypeOptions typeOptions;
+    Skills skills;
 
-    @OneToMany(mappedBy = "questions",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "chapters",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonManagedReference
-    private Set<Answers> answers = new HashSet<>();
-
-    @OneToMany(mappedBy = "questions",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private Set<TestQuestions> testQuestions = new HashSet<>();
+    private Set<SubChapters> subChapters = new HashSet<>();
 }

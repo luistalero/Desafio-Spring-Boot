@@ -1,6 +1,6 @@
 package com.schooltibu.schooltibu.domain.entities;
 
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,21 +15,24 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Table(name = "test_questions")
+@Table(name = "users")
 @Entity
-public class Exams {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "date_presentation")
-    private LocalDateTime datePresentation;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password") 
+    private String password;
 
     @ManyToOne
-    @JoinColumn(name = "student_id", insertable = false, updatable = false)
-    private Students students;
-
-    @ManyToOne
-    @JoinColumn(name = "test_config_id", insertable = false, updatable = false) 
-    private TestConfig testConfig;
+    @JoinColumn(name = "rol_id")
+    @JsonBackReference
+    Role roles;
 }
